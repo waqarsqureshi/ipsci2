@@ -9,7 +9,8 @@ from pathlib import Path
 from tqdm import tqdm
 from util import get_palette, get_classes
 from util import get_img_paths, readImage, showImage, get_img_paths
-from mmseg.apis import inference_segmentor, init_segmentor
+#from mmseg.apis import init_model, inference_model, show_result_pyplot,inference_segmentor
+from mmseg.apis import inference_model, init_model, show_result_pyplot
 import argparse, os, glob, sys,random, json, base64,io
 
 #default folder
@@ -26,7 +27,7 @@ def result_segImage(result,
         """compute`resulted mask` for the `img`.
 
         """
-        seg = result[0]
+        seg = result.cpu()
         if palette is None:
             state = np.random.get_state()
             np.random.seed(42)
@@ -76,7 +77,7 @@ def save(segImg_path,cropImg_path,path,args,segImage,orig):
 ######################################
 def segmentImage(args):
     # build the model from a config file and a checkpoint file
-    model = init_segmentor(args.config, args.checkpoint , device='cuda:0')
+    model = init_model(args.config, args.checkpoint , device='cuda:0')
     #model = init_segmentor(args.config, args.checkpoint  , device='cpu') # this does not work
     # inference the model on a given image
     paths = get_img_paths(args.path)
@@ -88,6 +89,7 @@ def segmentImage(args):
         image = cv2.imread(path) # Read the image using opencv format
 
         if image.shape[:2] == (576, 720):
+            orig = np.zeros((576, 720, 3), np.uint8)
             orig = image
         elif image.shape[:2] == (542,720):
             orig = np.zeros((576, 720, 3), np.uint8)
@@ -97,9 +99,13 @@ def segmentImage(args):
             orig [18:576,0:720] = image
         else:
             orig = cv2.resize(image, (576, 720)) #(h,w)
-        
-        result = inference_segmentor(model, orig)
-        mask = result_segImage(result, palette=get_palette('roadsurvey'), CLASS_NAMES=get_classes('roadsurvey'))
+            
+        #result = inference_segmentor(model, orig)
+        result = inference_model(model,orig)
+        #sem_seg = sem_seg.cpu().data
+        result2 = (result.pred_sem_seg.data[0])
+       
+        mask = result_segImage(result2, palette=get_palette('roadsurvey'), CLASS_NAMES=get_classes('roadsurvey'))
         segImage = cv2.bitwise_and(orig, mask)
         #following is the code to automatically discard images with poor segmentation result
         gray_mask = cv2. cvtColor(mask, cv2.COLOR_BGR2GRAY)
@@ -129,8 +135,8 @@ def segmentImage(args):
 def main() :
     parser = argparse.ArgumentParser(description='RoadSurvey inference')
     parser.add_argument("-path", "--path", type=str, help="path to input image Folder", default=input_path)
-    parser.add_argument("-config", "--config", type=str, help="path to config file", default="/home/pms/pms-code/ipsci-script/checkpoints/deeplabv3plus_r50b-d8_512x512_160k_roadsurvey/deeplabv3plus_r50b-d8_512x512_160k_roadsurvey.py")
-    parser.add_argument("-checkpoint", "--checkpoint", type=str, help="path to checkpoint file", default="/home/pms/pms-code/ipsci-script/checkpoints/deeplabv3plus_r50b-d8_512x512_160k_roadsurvey/latest.pth")
+    parser.add_argument("-config", "--config", type=str, help="path to config file", default="/home/pms/pms/pms-code/ipsci-script/checkpoints-1/deeplabv3plus_r50-d8_512x512_160k_new/deeplabv3plus_r50b-d8_4xb2-160k_roadsurvey-512x512.py")
+    parser.add_argument("-checkpoint", "--checkpoint", type=str, help="path to checkpoint file", default="/home/pms/pms/pms-code/ipsci-script/checkpoints-1/deeplabv3plus_r50-d8_512x512_160k_new/iter_160000.pth")
     parser.add_argument('--savedir', type=str, default=output_path, help='The root of save directory')
     parser.add_argument('--show', action='store_true', help='Whether to show the image',default=False)
     args = (parser.parse_args())
