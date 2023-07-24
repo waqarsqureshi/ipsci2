@@ -1,0 +1,118 @@
+# It is better to create a conda environment
+
+if using conda then:
+
+conda create --name ipsci --file requirements.txt
+
+otherwise use the following:
+
+pip install -r requirements.txt
+
+#How to use it? There are two seperate scripts one for segmentation of road and other for classification of road
+
+python extract_pavement.py -path /home/pms/pms-dataset/RegionalRoads2018/R864/SCRIM --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/SCRIM 
+
+python extract_pavement.py -path /home/pms/pms-dataset/RegionalRoads2018/R864/RSP --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP
+
+python extract_pavement.py -path /home/pms/pms-dataset/RegionalRoads2018/R313/RSP --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI-R313/RSP
+
+python extract_pavement.py -path /home/pms/pms-dataset/RegionalRoads2018/R313/SCRIM --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI-R313/SCRIM
+
+##########################################
+python classify.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/SCRIM/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R864/SCRIM/segImg --resultFile R864SCRIMsegImg.xls
+python classify.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/SCRIM/cropImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R864/SCRIM/cropImg --resultFile R864SCRIMcropImg.xls
+
+python classify.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R864/RSP/segImg --resultFile R864RSPsegImg.xls
+
+python classify.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R313/RSP/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R313/RSP/segImg --resultFile R313RSPsegImg.xls
+
+python classify.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R313/SCRIM/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R313/SCRIM/segImg --resultFile R313SCRIMsegImg.xls
+
+python classify2.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/SCRIM/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R864/SCRIM2/segImg --resultFile CR864SCRIMsegImg.xls --model "convnext_small"
+python classify2.py -path /home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP/segImg --savedir /home/pms/pms-dataset/RegionalRoads2018/PSCI/R864/RSP2/segImg --resultFile CR864RSPsegImg.xls --model "convnext_small"
+
+python classify2.py -path /home/pms/CIFAR-10-images-segImg/test --savedir ./segImg --resultFile test.xls --model "convnext_small"
+
+
+################################################
+python extract_pavement.py -path "/home/pms/pms-dataset/RegionalRoads2023/Jpegs/CORK280223/Cam1" --savedir "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORK280223/Cam1"
+
+python extract_pavement.py -path "/home/pms/pms-dataset/RegionalRoads2023/Jpegs/CORK280223B/Cam1" --savedir "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORK280223B/Cam1"
+
+python extract_pavement.py -path "/home/pms/pms-dataset/RegionalRoads2023/Jpegs/CORKVDEOSECTION21D/Cam1" --savedir "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORKVDEOSECTION21D/Cam1"
+
+python extract_pavement.py -path "/home/pms/pms-dataset/RegionalRoads2023/Jpegs/corkvideosection21/Cam1" --savedir "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/corkvideosection21/Cam1"
+
+python extract_pavement.py -path "/home/pms/pms-dataset/RegionalRoads2023/Jpegs/Corkvideosurveysection21B/Cam1" --savedir "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/Corkvideosurveysection21B/Cam1"
+
+##################################################
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORK280223/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/CORK280223/Cam1/segImg" --resultFile CORK280223segImg.xls
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORK280223B/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/CORK280223B/Cam1/segImg" --resultFile CORK280223BsegImg.xls
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/CORKVDEOSECTION21D/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/CORKVDEOSECTION21D/Cam1/segImg" --resultFile CORKVDEOSECTION21DsegImg.xls
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/corkvideosection21/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/corkvideosection21/Cam1/segImg" --resultFile corkvideosection21segImg.xls
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/corkvideosection21/Cam1/cropImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/corkvideosection21/Cam1/cropImg" --resultFile corkvideosection21cropImg.xls
+
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/corkvideosection21c/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/corkvideosection21c/Cam1/segImg" --resultFile corkvideosection21csegImg.xls
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/corkvideosection21E/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/corkvideosection21E/Cam1/segImg" --resultFile corkvideosection21EsegImg.xls
+
+python classify.py -path "/home/pms/pms-dataset/RegionalRoads2023/Result/WE040323/Jpegs/Corkvideosurveysection21B/Cam1/segImg" --savedir "/home/pms/pms-dataset/RegionalRoads2023/PSCI/WE040323/Jpegs/Corkvideosurveysection21B/Cam1/segImg" --resultFile Corkvideosurveysection21BsegImg.xls
+
+###########################################
+
+python extract_pavement.py -path "/home/pms/pms-dataset/psci-10-class-roadsurvey-orig/splitted/train/10" --savedir /home/pms/pms-dataset/AcceptedRating2023update/original-test/10
+python classify.py -path "/home/pms/pms-dataset/AcceptedRating2023update/original-test/10/segImg" --savedir "/home/pms/pms-dataset/AcceptedRating2023update/orig-testPSCI/segImg" --resultFile SegImg-10.xls
+
+python classify2.py -path "/home/pms/pms-dataset/AcceptedRating2023update/Result/1" --savedir "/home/pms/pms-dataset/AcceptedRating2023update/iPSCI/1" --resultFile 1.xls
+
+python classify.py -path "/home/pms/pms-dataset/AcceptedRating2023update/patches/10/segImg" --savedir "/home/pms/pms-dataset/AcceptedRating2023update/patchPSCI/segImg" --resultFile SegImg-patch-10.xls
+
+python extract_pavement-small.py -path "/home/pms/pms-dataset/psci-10-class-roadsurvey-orig/splitted/test/10" --savedir "/home/pms/pms-dataset/AcceptedRating2023update/patches/10"
+
+python extract_pavement.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Accepted Ratings/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/PreProcess-Accepted/1"
+
+python classify.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/PreProcess-Accepted/1/segImg" --savedir "/home/pms/pms-dataset/AcceptedRating2023update/super-set-PSCI/segImg/1" --resultFile SegImg--10.xls
+
+python extract_pavement_train.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split/train/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/1" --File "1.xls"
+
+python extract_pavement_train.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split/val/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/val/1" --File "1-val.xls"
+
+/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/train
+
+python classify.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/train" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/train" --resultFile train.xls
+python classify.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/segImg/1" --resultFile segImg-1.xls
+python classify.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/cropImg" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/cropImg" --resultFile cropImg.xls
+
+
+python classify-5-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg-5class/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/5-class/swinv2/segImg/1" -model "swinv2" --resultFile swinv2-5-segImg-1.xls --cls 5
+
+python classify-5-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg-5class/segImg/2" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/5-class/swinv2/segImg/2" -model "swinv2" --resultFile swinv2-5-segImg-2.xls --cls 5
+
+python classify-10-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/10-class/xcit/segImg/1" -model "xcit" --resultFile xcit-5-segImg-1.xls --cls 10
+
+python classify-10-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/10-class/convnext/segImg/1" -model "convnext" --resultFile conv-10-segImg-1.xls --cls 10
+
+python classify-5-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg-5class/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/5-class/convB/segImg/1" -model "convnext" --resultFile convnext-5-segImg-1.xls --cls 5
+
+python classify-10-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/segImg/1" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/10-class/convS/segImg/1" -model "convnext" --resultFile convS-10-segImg-1.xls --cls 10
+
+python classify-10-class.py -path "/home/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/train" --savedir "/home/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/10-class/convS/train" -model "convnext" --resultFile convS-10-train.xls --cls 10
+
+python classify-10-class.py -path "/home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP/cropImg" --savedir "/home/pms/pms-dataset/RegionalRoads2018/PSCI-new-Swin2/R864/cropImg" -model "swinv2" --resultFile RegionalRoads2018-PSCI-R864-RSP-cropImg.xls --cls 10
+/home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP/cropImg
+/home/pms/pms-dataset/RegionalRoads2018/PSCI-R864/RSP/cropImg
+
+
+python extract_pavement.py -path "/home/pms/Downloads/2022/val" --savedir /home/pms/Downloads/result-2022/val
+
+eva2_base
+python classify-10-class.py -path "/home/pms/pms/pms-dataset/SuperSet-Accepted Ratings/Train-Test-split-cropseg/train" \
+--savedir "/home/pms/pms/pms-dataset/SuperSet-Accepted Ratings/iPSCI-result-new-model/10-class/eva2-base/train" -model "eva2_base" --resultFile convS-10-train.xls --cls 10
+
+
+python extract_pavement.py -path "/home/pms/pms/pms-dataset/QADATA2023/Loops/PSCI/LOOP1A/Cam1/" --savedir "/home/pms/pms/pms-dataset/QADATA2023-cropped/Loops/PSCI/LOOP1A/Cam1/"
